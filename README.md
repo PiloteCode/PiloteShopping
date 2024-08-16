@@ -34,6 +34,7 @@ Attention, il y a quelques règles à suivre :
 
 La version mobile du site n'est pas disponible pour le moment, si vous avez un problème avec celle-ci c'est normal faite quand même un rapport.
 
+Les récompenses sont attribués en CRÉDIT BOUTIQUE.
 
 Passez une bonne journée,
 Pilote Production
