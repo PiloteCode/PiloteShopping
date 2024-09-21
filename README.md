@@ -1,8 +1,20 @@
-# PiloteShopping
+# PiloteShoppingCMS
+
+Bienvenue sur Pilote Shopping CMS !
 
 Ce repo est destiné à la publication de RELEASE PUBLIQUE ainsi que la recherche de vulnérabilité et de faille.
 Rejoins le programme de bug hunting sur https://discord.gg/PILOTE
 
+## Nous utilisons : 
+
+- Bootstrap5 
+- MailsPHP (Rewrited by PiloteCode)
+- ApexCharts
+- jQuery
+- OwlCarousel
+- ChartJS
+
+    
 # Programme BUG HUNTER
 
 Nous sommes samedi, comme promis voici le programme Bug Hunter pour cette BÊTA FERMÉE.
