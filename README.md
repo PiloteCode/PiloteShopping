@@ -19,7 +19,7 @@ Merci à @SauceQuiPeut qui rejoint l'équipe Pilote Shopping !
     
 # Programme BUG HUNTER
 
-Nous sommes samedi, comme promis voici le programme Bug Hunter pour cette BÊTA FERMÉE.
+Nous sommes samedi, comme promis voici le programme Bug Hunter pour cette BÊTA.
 
 Pour faire le report d'un bug, rendez-vous sur : https://github.com/PiloteCode/PiloteShopping/issues
 
