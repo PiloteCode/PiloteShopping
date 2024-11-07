@@ -15,6 +15,7 @@ Merci à @SauceQuiPeut qui rejoint l'équipe Pilote Shopping !
 - jQuery
 - OwlCarousel
 - ChartJS
+- stripe-php
 
     
 # Programme BUG HUNTER
