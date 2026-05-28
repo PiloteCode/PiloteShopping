@@ -1,0 +1,105 @@
+RewriteEngine On
+
+# ============================================================================
+# FORCER HTTPS
+# ============================================================================
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# ============================================================================
+# EN-TÊTES DE SÉCURITÉ GLOBAUX
+# ============================================================================
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+    Header always set X-XSS-Protection "0"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://unpkg.com https://js.stripe.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' https://api.stripe.com https://challenges.cloudflare.com https://ipapi.co; frame-src https://js.stripe.com https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+    Header unset Server
+    Header unset X-Powered-By
+</IfModule>
+
+# ============================================================================
+# BLOCAGE FICHIERS SENSIBLES
+# ============================================================================
+<FilesMatch "(^\.|\.(env|env\..*|sql|sql\.gz|bak|backup|dump|log|key|pem|p12|pfx|crt|cer|ini|conf|lock|md|yml|yaml|json|sh|bash|git|gitignore|gitattributes|gitmodules|htaccess|htpasswd))$">
+    Require all denied
+</FilesMatch>
+
+# Bloquer les noms de fichiers commençant par un point ou contenant 'secure'
+<FilesMatch "^(\.|mailsecure)">
+    Require all denied
+</FilesMatch>
+
+# Bloquer l'accès aux fichiers de config PHP s'ils sont accédés directement
+<Files "config.php">
+    <If "%{REQUEST_URI} =~ m#^/(api|api/v1|api/v1/payments/stripe)/config\.php$#">
+        Require all denied
+    </If>
+</Files>
+
+# Autoriser composer.json/lock seulement en local
+<FilesMatch "^(composer\.json|composer\.lock|package\.json|package-lock\.json)$">
+    Require all denied
+</FilesMatch>
+
+# ============================================================================
+# BLOCAGE DOSSIERS SENSIBLES
+# ============================================================================
+RedirectMatch 403 /\.git(/|$)
+RedirectMatch 403 /\.env
+RedirectMatch 403 /vendor/
+RedirectMatch 403 /node_modules/
+RedirectMatch 403 /cron/
+RedirectMatch 403 /api/v1/mail/dkim/
+RedirectMatch 403 /api/private\.key$
+
+# ============================================================================
+# DÉSACTIVER L'EXÉCUTION PHP DANS LES DOSSIERS D'UPLOAD
+# ============================================================================
+<DirectoryMatch "^.*/uploads/.*$">
+    <FilesMatch "\.(php|php\d*|phtml|phar|pl|py|jsp|asp|aspx|sh|cgi)$">
+        Require all denied
+    </FilesMatch>
+    php_flag engine off
+    Options -ExecCGI
+    RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .phar
+    AddType text/plain .php .phtml .php3 .php4 .php5 .php7 .phar
+</DirectoryMatch>
+
+# ============================================================================
+# ROUTAGE — EXCEPTIONS (callbacks .php à garder)
+# ============================================================================
+RewriteCond %{REQUEST_URI} ^/auth/google/login\.php$ [NC,OR]
+RewriteCond %{REQUEST_URI} ^/auth/google/callback\.php$ [NC]
+RewriteRule ^ - [L]
+
+# Rediriger /xxx.php vers /xxx (URL propres)
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{REQUEST_URI} ^(.+)\.php$ [NC]
+RewriteCond %{THE_REQUEST} \s/([^\s]+)\.php[\s?] [NC]
+RewriteRule ^(.+)\.php$ /$1 [R=301,L]
+
+# Réécrire /xxx vers /xxx.php si le fichier existe
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.+?)/?$ $1.php [L,QSA]
+
+ErrorDocument 404 /404.php
+
+# ============================================================================
+# ROUTAGE — URLS PROPRES
+# ============================================================================
+RewriteRule ^products/([a-zA-Z0-9\-]+)/?$ products/index.php [L,QSA]
+RewriteRule ^products/category/([a-zA-Z0-9\-]+)/?$ products/category.php [L,QSA]
+RewriteRule ^users/([a-zA-Z0-9_\-]+)/?$ users/profile.php [L,QSA]
+RewriteRule ^orders/([A-Z0-9\-]+)/?$ orders/view.php [L,QSA]
+
+# ============================================================================
+# DÉSACTIVER LE LISTING DE RÉPERTOIRES
+# ============================================================================
+Options -Indexes -MultiViews

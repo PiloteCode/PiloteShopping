@@ -1,0 +1,51 @@
+# Secrets / config
+.env
+.env.local
+.env.production
+.env.staging
+.env.*.local
+mailsecure.php
+
+# Clés privées
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+api/v1/mail/dkim/private.key
+
+# Dumps base de données / backups
+*.sql
+*.sql.gz
+*.bak
+*.backup
+*.dump
+
+# Logs
+*.log
+logs/
+error_log
+
+# Uploads utilisateurs (à ne pas versionner)
+uploads/avatars/*
+uploads/products/*
+uploads/*.tmp
+!uploads/avatars/.gitkeep
+!uploads/products/.gitkeep
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Composer / dépendances
+vendor/
+node_modules/
+composer.lock
+
+# Sessions PHP locales
+sessions/

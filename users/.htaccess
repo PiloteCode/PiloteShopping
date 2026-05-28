@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /users/
+
+    # Empêcher l'accès direct aux fichiers systèmes
+    RewriteRule ^\.htaccess$ - [F,L]
+
+    # Rediriger toutes les requêtes vers index.php
+    # Sauf les fichiers et dossiers existants
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Capture le nom d'utilisateur et le passe à index.php
+    RewriteRule ^([a-zA-Z0-9_-]+)/?$ index.php?username=$1 [L,QSA]
+</IfModule>
