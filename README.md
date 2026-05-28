@@ -257,20 +257,6 @@ Avant archivage, le code a subi une **revue de sécurité multi-agents** en plus
 - Rate-limiting (login, register, coupon, password reset)
 - 2FA TOTP avec tolérance 2 fenêtres, backup codes hashés
 
-### À retenir si vous reprenez le code
-
-> [!CAUTION]
-> Les anciens secrets de production (DB, SMTP, JWT, Google OAuth, Turnstile, Discord webhook, clé DKIM) ont été commités dans l'historique git **avant** l'audit. Ils ont été retirés du tip mais restent visibles dans `git log -p`.
->
-> **Vous devez** :
-> 1. Faire tourner tous les secrets chez leurs fournisseurs respectifs.
-> 2. Régénérer JWT_SECRET, ENCRYPTION_KEY, HASH_SALT via `php scripts/generate-secrets.php` *(changer HASH_SALT invalidera tous les `password_verify()` existants)*.
-> 3. Purger l'historique : `git filter-repo --invert-paths --path api/v1/mail/dkim/private.key --path api/config.php --path-glob '*.sql'`.
-> 4. Sur le serveur : `chmod 600 .env && chown www-data:www-data .env`.
-> 5. Activer GitHub Secret Scanning / Push Protection sur le fork.
-
----
-
 ## Pourquoi c'est fermé
 
 La boutique a fait ce qu'elle avait à faire. Le marché a évolué, les marges se sont effondrées, le temps d'opération est devenu disproportionné. Plutôt que de laisser la prod pourrir à petit feu avec des secrets compromis et des dépendances qui vieillissent, on a préféré :
