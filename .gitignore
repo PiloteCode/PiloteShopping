@@ -1,51 +1,41 @@
-# Secrets / config
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+
+# production
+/build
+
+# local database (PGlite persisted data)
+/.pglite/
+/.data/
+
+# env
 .env
-.env.local
-.env.production
-.env.staging
-.env.*.local
-mailsecure.php
+.env*.local
 
-# Clés privées
-*.key
-*.pem
-*.p12
-*.pfx
-*.crt
-*.cer
-api/v1/mail/dkim/private.key
-
-# Dumps base de données / backups
-*.sql
-*.sql.gz
-*.bak
-*.backup
-*.dump
-
-# Logs
+# debug / logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 *.log
-logs/
-error_log
 
-# Uploads utilisateurs (à ne pas versionner)
-uploads/avatars/*
-uploads/products/*
-uploads/*.tmp
-!uploads/avatars/.gitkeep
-!uploads/products/.gitkeep
-
-# IDE / OS
-.vscode/
-.idea/
+# os / editor
 .DS_Store
 Thumbs.db
-*.swp
-*~
+*.pem
+.idea/
+.vscode/*
+!.vscode/extensions.json
 
-# Composer / dépendances
-vendor/
-node_modules/
-composer.lock
+# misc
+/coverage
+.turbo
+*.tsbuildinfo
 
-# Sessions PHP locales
-sessions/
+# NOTE: drizzle/ migrations ARE committed (no blanket *.sql ignore).

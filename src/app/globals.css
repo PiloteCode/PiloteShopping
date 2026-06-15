@@ -1,0 +1,203 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+  Pilote Shopping v2 — design tokens.
+  Dark, glassmorphic, sky-blue accent (#0EA5E9 family) carried over and
+  modernised from the legacy theme. Always-dark by default.
+*/
+:root {
+  --radius: 0.75rem;
+
+  --background: oklch(0.145 0.012 248);
+  --foreground: oklch(0.985 0.003 248);
+
+  --card: oklch(0.178 0.014 248);
+  --card-foreground: oklch(0.985 0.003 248);
+
+  --popover: oklch(0.165 0.014 248);
+  --popover-foreground: oklch(0.985 0.003 248);
+
+  --primary: oklch(0.696 0.146 233);
+  --primary-foreground: oklch(0.145 0.02 248);
+
+  --secondary: oklch(0.235 0.016 248);
+  --secondary-foreground: oklch(0.985 0.003 248);
+
+  --muted: oklch(0.235 0.016 248);
+  --muted-foreground: oklch(0.68 0.02 248);
+
+  --accent: oklch(0.27 0.03 233);
+  --accent-foreground: oklch(0.985 0.003 248);
+
+  --destructive: oklch(0.63 0.21 26);
+  --destructive-foreground: oklch(0.985 0.003 248);
+
+  --success: oklch(0.72 0.17 156);
+  --warning: oklch(0.78 0.16 78);
+
+  --border: oklch(0.28 0.016 248);
+  --input: oklch(0.255 0.016 248);
+  --ring: oklch(0.696 0.146 233);
+
+  --chart-1: oklch(0.696 0.146 233);
+  --chart-2: oklch(0.72 0.17 156);
+  --chart-3: oklch(0.78 0.16 78);
+  --chart-4: oklch(0.65 0.2 305);
+  --chart-5: oklch(0.63 0.21 26);
+
+  --sidebar: oklch(0.165 0.014 248);
+  --sidebar-foreground: oklch(0.985 0.003 248);
+  --sidebar-primary: oklch(0.696 0.146 233);
+  --sidebar-primary-foreground: oklch(0.145 0.02 248);
+  --sidebar-accent: oklch(0.235 0.016 248);
+  --sidebar-accent-foreground: oklch(0.985 0.003 248);
+  --sidebar-border: oklch(0.28 0.016 248);
+  --sidebar-ring: oklch(0.696 0.146 233);
+}
+
+/* next-themes toggles .dark; we mirror :root so the brand stays dark. */
+.dark {
+  --background: oklch(0.145 0.012 248);
+  --foreground: oklch(0.985 0.003 248);
+  --card: oklch(0.178 0.014 248);
+  --card-foreground: oklch(0.985 0.003 248);
+  --popover: oklch(0.165 0.014 248);
+  --popover-foreground: oklch(0.985 0.003 248);
+  --primary: oklch(0.696 0.146 233);
+  --primary-foreground: oklch(0.145 0.02 248);
+  --secondary: oklch(0.235 0.016 248);
+  --secondary-foreground: oklch(0.985 0.003 248);
+  --muted: oklch(0.235 0.016 248);
+  --muted-foreground: oklch(0.68 0.02 248);
+  --accent: oklch(0.27 0.03 233);
+  --accent-foreground: oklch(0.985 0.003 248);
+  --destructive: oklch(0.63 0.21 26);
+  --destructive-foreground: oklch(0.985 0.003 248);
+  --border: oklch(0.28 0.016 248);
+  --input: oklch(0.255 0.016 248);
+  --ring: oklch(0.696 0.146 233);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-jb), ui-monospace, "JetBrains Mono", monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background-color: color-mix(in oklch, var(--primary) 35%, transparent);
+  }
+  /* Subtle ambient grid + radial glow on the app shell */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(60rem 60rem at 78% -10%, color-mix(in oklch, var(--primary) 16%, transparent), transparent 60%),
+      radial-gradient(50rem 50rem at 8% 8%, color-mix(in oklch, var(--chart-4) 10%, transparent), transparent 55%);
+  }
+}
+
+/* ---- Custom utilities ---- */
+@utility glass {
+  background-color: color-mix(in oklch, var(--card) 65%, transparent);
+  backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in oklch, var(--border) 80%, transparent);
+}
+
+@utility glow-primary {
+  box-shadow: 0 0 0 1px color-mix(in oklch, var(--primary) 30%, transparent),
+    0 12px 40px -12px color-mix(in oklch, var(--primary) 55%, transparent);
+}
+
+@utility text-gradient {
+  background: linear-gradient(
+    100deg,
+    var(--foreground),
+    color-mix(in oklch, var(--primary) 80%, white)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility card-grid-bg {
+  background-image: radial-gradient(
+    color-mix(in oklch, var(--border) 60%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
+/* Thin custom scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: var(--border);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}

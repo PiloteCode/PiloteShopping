@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1781514503224,
+      "tag": "0000_redundant_silver_samurai",
+      "breakpoints": true
+    }
+  ]
+}
